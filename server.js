@@ -24,7 +24,7 @@ app.use('/api', router);
 
 // Test Route
 router.get('/', (req, res) => {
-  res.json({message: 'Welcome to Squads API!'});
+  res.json({message: 'Welcome to Dominics API!'});
 });
 
 // Fire up server
