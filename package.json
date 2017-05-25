@@ -2,7 +2,7 @@
   "name": "mongolearn",
   "version": "1.0.0",
   "description": "Learning MongoDB",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/Dominic-Pace/mongolearn/issues"
   },
-  "homepage": "https://github.com/Dominic-Pace/mongolearn#readme"
+  "homepage": "https://github.com/Dominic-Pace/mongolearn#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.2"
+  }
 }
