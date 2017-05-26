@@ -1,9 +1,14 @@
 {
   "name": "mongolearn",
-  "version": "1.0.0",
-  "description": "Learning MongoDB",
-  "main": "server.js",
+  "version": "0.0.1",
+  "description": "A Restaurant API",
+  "main": "dist",
   "scripts": {
+    "dev": "NODE_ENV=development nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
+    "build": "babel src -s D -d dist --presets es2015,stage-0",
+    "start": "NODE_ENV=production pm2 start dist",
+    "prestart": "npm run -s build",
+    "lint": "eslint src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,7 +18,20 @@
   "keywords": [
     "mongo"
   ],
-  "author": "Dominic Pace",
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
+  },
+  "author": "Dominic Pace <dpace@nhpace.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Dominic-Pace/mongolearn/issues"
@@ -23,5 +41,14 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongoose": "^4.10.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^3.19.0",
+    "nodemon": "^1.11.0"
   }
 }
