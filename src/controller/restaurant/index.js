@@ -3,11 +3,13 @@ import { Router } from 'express';
 import Restaurant from '../../models/restaurant';
 import Review from '../../models/review';
 
+import { authenticate } from '../../middleware/auth'
+
 export default({ config, db }) => {
   let api = Router();
 
   // CREATE RESTAURANT - 'POST /v1/restaurant'
-  api.post('/', (req, res) => {
+  api.post('/', authenticate, (req, res) => {
     let newRest = new Restaurant();
     newRest.name = req.body.name;
     newRest.foodType = req.body.foodType;
@@ -23,7 +25,7 @@ export default({ config, db }) => {
   });
 
   // GET ALL RESTAURANTS - 'GET /v1/restaurant'
-  api.get('/', (req, res) => {
+  api.get('/', authenticate, (req, res) => {
     Restaurant.find({}, (err, restaurants) => {
       if (err) {
         res.send(err);
@@ -33,7 +35,7 @@ export default({ config, db }) => {
   });
 
   // GET SINGLE RESTAURANTS - 'GET /v1/restaurant/{{id}}'
-  api.get('/:id', (req, res) => {
+  api.get('/:id', authenticate, (req, res) => {
     Restaurant.findById(req.params.id, (err, restaurant) => {
       if (err) {
         res.send(err);
@@ -43,7 +45,7 @@ export default({ config, db }) => {
   });
 
   // UPDATE SINGLE RESTAURANT - 'PUT /v1/restaurant/{{id}}'
-  api.put('/:id', (req, res) => {
+  api.put('/:id', authenticate, (req, res) => {
     Restaurant.findById(req.params.id, (err, restaurant) => {
       if (err) {
         res.send(err);
@@ -63,7 +65,7 @@ export default({ config, db }) => {
   });
 
   // DELETE SINGLE RESTAURANT - 'DELETE /v1/restaurant/{{id}}'
-  api.delete('/:id', (req, res) => {
+  api.delete('/:id', authenticate, (req, res) => {
     Restaurant.remove({
       _id: req.params.id
     }, (err, restaurant) => {
@@ -75,7 +77,7 @@ export default({ config, db }) => {
   });
 
   // ADD A (review) TO  RESTAURANT - 'ADD /v1/restaurant/{{id}}/reviews'
-  api.post('/:id/reviews', (req, res) => {
+  api.post('/:id/reviews', authenticate, (req, res) => {
     Restaurant.findById(req.params.id, (err, restaurant) => {
       if(err) {
          res.send(err);
@@ -101,7 +103,7 @@ export default({ config, db }) => {
   });
 
   // GET ALL REVIEWS FOR A RESTAURANT - 'GET /v1/restaurant/{{id}}/reviews'
-  api.get('/:id/reviews', (req, res) => {
+  api.get('/:id/reviews', authenticate, (req, res) => {
     Review.find({ restaurant: req.params.id }, (err, reviews) => {
       if (err) {
         res.send(err);
